@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜數字挑戰賽</title>
+
+    <style>
+        body {
+            background-color: blanchedalmond;
+            text-align: center;
+        }
+
+        #result {
+            background-color: antiquewhite;
+            width: 300px;
+            padding: 80px 0;
+            margin: 12px auto;
+            border-radius: 12px;
+            border: 1px black solid;
+            text-align: center;
+        }
+
+        .tips {
+            display: inline-block;
+            background-color: darkred;
+            color: white;
+            padding: 4px 6px;
+            border-radius: 3px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>猜數字挑戰賽 !</h1>
+    <h3 class="tips">遊戲說明</h3>
+    <br>
+    <p>請猜1-50之間的數字，遊戲共有5次機會。</p>
+    <label for="number">請猜一個數字</label>
+    <input type="number" id="number">
+    <button id="answer" onclick="answer()">送出</button>
+    <div id="result">
+        結果:
+    </div>
+    <button id="restart">重新開始</button>
+    <h3 id="guess-count">猜錯5次!</h3>
+
+    <script>
+        function answer() {
+            //判斷遊戲次數
+            if (count == maxCount) {
+                resultE1.innerHTML = "請重新開始遊戲!";
+                return
+            }
+
+            let number = numberE1.value;
+
+            //輸入不能為空
+            if (number == "") {
+                resultE1.innerHTML = "輸入不能為空";
+                return;
+            }
+
+            //輸入要在1-50之間
+            if (number < 1 || number > 50) {
+                resultE1.innerHTML = "輸入要在1-50之間";
+                return;
+            }
+
+            //程式練習將次數進行累加
+            count++;
+
+            //判斷是否猜對
+            if (number == computer) {
+                resultE1.innerHTML = "猜對了";
+            } else {
+
+                //程式練習將猜錯次數進行提示
+                guessCountE1.innerHTML = "猜錯${count}次!";
+                //五次則結束遊戲(提示正確答案)
+                if (count == 5) {
+                    resultE1.innerHTML = `遊戲結束<br>答案為${computer}`;
+                }
+                else if (number > computer) {
+                    resultE1.innerHTML = "猜低一點!";
+                } else {
+                    resultE1.innerHTML = "猜高一點!";
+                }
+            }
+        }
+
+        const numberE1 = document.querySelector("#number");
+        const answerBtnE1 = document.querySelector("#answer");
+        const resultE1 = document.querySelector("#result")
+        const guessCountE1 = document.querySelector("#guess-count")
+        const restartBtnE1 = document.querySelector("#restart")
+
+        restartBtnE1.addEventListener("click", () => {
+            count = 0;
+            resultE1.innerHTML = "";
+            guessCountE1.innerHTML = "";
+        });
+
+        const maxCount = 5;
+        let count = 0;
+        //
+        let computer = 50;
+        console.log(numberE1, answerE1, answerBtnE1, restartBtnE1); 
+    </script>
+</body>
+
+</html>
